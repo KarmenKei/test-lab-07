@@ -33,4 +33,4 @@
 
 ![BUG-01 — Зохиогчгүй номын мөр](../screenshots/bug-01-missing-author.png)
 
-[Туршилтын тайлан, 22:48 ба 22:50](../session-report.md) · [Өмнөх зураг](../screenshots/empty-books.png) · [Өмнөх туршилтын тэмдэглэл](../session-notes.txt)
+[Туршилтын тайлан, 22:48 ба 22:50](../session-report.md) · [Өмнөх зураг](../screenshots/empty-books.png)
