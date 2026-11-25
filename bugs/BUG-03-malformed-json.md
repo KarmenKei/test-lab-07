@@ -1,41 +1,42 @@
-# BUG-03: API accepts malformed JSON and returns success
+# BUG-03 — Дутуу JSON хүсэлтэд API амжилттай гэсэн хариу өгдөг
 
-**Severity:** High  
-**Category:** API / Input validation  
-**Status:** Reproduced
+- **Ноцтой байдал:** Ноцтой (Major) — хүсэлт буруу байгааг дуудагч програм HTTP төлөвөөс илрүүлэх боломжгүй.
+- **Ангилал:** API, оролтын баталгаажуулалт
+- **Аялал:** Saboteur
 
-## Environment
-- Application: Reading List v2.0
-- Method: `POST`
-- Endpoint: `/api/books`
-- Content-Type: `application/json`
-- Server: `http://localhost:3000`
+## Орчин
 
-## Steps to reproduce
-1. Start the application.
-2. Send a POST request with incomplete JSON:
+- Апп: «Уншлагын жагсаалт» v2.0
+- Хүсэлт: `POST /api/books`
+- Агуулгын төрөл: `application/json`
+- Хаяг: `http://localhost:3000`
+- Дахин шалгасан огноо: 2026-11-25
+
+## Дахин гаргах алхам
+
+1. Аппыг шинээр асаана.
+2. Дутуу JSON агуулсан хүсэлт илгээнэ.
+
    ```bash
    curl -i -X POST http://localhost:3000/api/books \
      -H 'Content-Type: application/json' \
      --data '{"title":"Malformed Test","author":'
    ```
-3. Inspect the HTTP status and response body.
 
-## Expected result
-The API rejects the malformed JSON with an appropriate client error, such as HTTP `400 Bad Request`, and does not report success.
+3. HTTP төлөвийн мөр болон хариуны агуулгыг шалгана.
 
-## Actual result
-The API returns:
-- HTTP status: `200 OK`
-- Response body: `{"result":"OK"}`
+## Хүлээгдсэн үр дүн
 
-The server reports success even though the submitted JSON is syntactically incomplete.
+API буруу JSON-той хүсэлтийг хүлээн авахаас татгалзаж, HTTP `400 Bad Request` буцаах ёстой.
 
-## Evidence
-- Raw response: `evidence/malformed-json-response.txt`
+## Бодит үр дүн
 
-## Impact
-Clients may incorrectly believe malformed requests were processed successfully. This makes API errors difficult to detect and can undermine data integrity.
+API HTTP `200 OK` төлөв болон `{"result":"OK"}` хариу буцаасан. Шинэ туршилтаар 22:55 цагт энэ үр дүнг давтан ажиглав.
 
-## Reproducibility
-Reproduced three times with the same malformed request.
+Харьцуулах шалгалтаар 23:10 цагт зөв JSON илгээхэд HTTP `201 Created` буцаж, үүсгэсэн ном жагсаалтад харагдсан.
+
+## Нотлох баримт
+
+[Шинэ туршилтын curl гаралт](../evidence/bug-03-curl.txt) · [Туршилтын тайлан, 22:55](../session-report.md) · [Өмнөх туршилтын curl гаралт](../evidence/malformed-json-response.txt)
+
+[Зөв JSON-оор бүртгэсэн номын зураг](../screenshots/api-control.png)

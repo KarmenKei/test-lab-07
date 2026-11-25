@@ -1,32 +1,34 @@
-# BUG-04: Delete action displays an incorrect success message
+# BUG-04 — Ном устгасны дараа «Ном нэмэгдлээ» гэж мэдэгддэг
 
-**Severity:** Low  
-**Category:** User feedback / UI  
-**Status:** Reproduced (confirm in browser before submitting)
+- **Ноцтой байдал:** Бага (Minor) — номын мөр устсан ч мэдэгдэл өөр үйлдлийг илэрхийлнэ.
+- **Ангилал:** Хэрэглэгчийн интерфэйс, үйлдлийн мэдэгдэл
+- **Аялал:** Supermodel
 
-## Environment
-- Application: Reading List v2.0
-- Browser: Firefox on macOS
-- URL: `http://localhost:3000`
+## Орчин
 
-## Steps to reproduce
-1. Open the reading list.
-2. Add a temporary book.
-3. Click `Устгах` on that book.
-4. Observe the success message displayed above the table.
+- Апп: «Уншлагын жагсаалт» v2.0
+- Хөтөч: Firefox 160.0.1, macOS
+- Дахин шалгасан огноо: 2026-11-25
+- Хаяг: `http://localhost:3000`
 
-## Expected result
-The selected book is deleted, and the application displays a confirmation message indicating deletion, such as `Ном устгагдлаа`.
+## Дахин гаргах алхам
 
-## Actual result
-The application displays `Ном нэмэгдлээ` (“Book added”) after the delete action, which incorrectly describes the operation performed.
+1. Аппыг шинээр асааж, анхны гурван номтой жагсаалтыг нээнэ.
+2. «Гарчиг»-т `Delete Check`, «Зохиолч»-д `Test Author`, «Он»-д `2020` оруулаад «Нэмэх» товчийг дарна.
+3. Шинэ номын мөрийн «Устгах» товчийг дарж, хүснэгтийн дээрх мэдэгдлийг шалгана.
 
-## Evidence
-- Screenshot: `../screenshots/delete-success-message.png`
-- Session notes: `session-notes.txt`
+## Хүлээгдсэн үр дүн
 
-## Impact
-The incorrect confirmation message can confuse users about whether the application added or deleted a book.
+Сонгосон номын мөр арилж, «Ном устгагдлаа» гэх мэт тухайн үйлдэлд тохирсон мэдэгдэл харагдах ёстой.
 
-## Reproducibility
-Record the number of successful reproductions after testing in the browser.
+## Бодит үр дүн
+
+`Delete Check` номын мөр арилсан боловч «Ном нэмэгдлээ» гэсэн мэдэгдэл хэвээр харагдсан.
+
+## Нотлох баримт
+
+![BUG-04 — Устгахаас өмнө Delete Check ном жагсаалтад харагдсан нь](../screenshots/bug-04-before-delete.png)
+
+![BUG-04 — Устгасны дараа нэмсэн тухай мэдэгдэл хэвээр үлдсэн нь](../screenshots/bug-04-after-delete.png)
+
+[Туршилтын тайлан, 22:54](../session-report.md) · [Өмнөх туршилтын зураг](../screenshots/delete-success.png)

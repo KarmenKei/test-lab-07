@@ -1,29 +1,36 @@
-# BUG-01: Empty book records can be created
+# BUG-01 — Заавал бөглөх талбар хоосон байхад номын бүртгэл үүсдэг
 
-**Severity:** Medium
-**Category:** Input validation / Data integrity
-**Status:** Reproduced
+- **Ноцтой байдал:** Ноцтой (Major) — заавал бөглөх мэдээлэлгүй ном бүртгэгдэж байна.
+- **Ангилал:** Оролтын баталгаажуулалт, өгөгдлийн бүрэн бүтэн байдал
+- **Аялал:** Couch Potato
 
-## Environment
-- Application: Reading List v2.0
-- Browser: Firefox on macOS
-- URL: http://localhost:3000
+## Орчин
 
-## Steps to reproduce
-1. Open the add-book form.
-2. Leave the title, author, and year fields empty.
-3. Submit the form.
-4. Repeat the submission.
+- Апп: «Уншлагын жагсаалт» v2.0
+- Хөтөч: Firefox 160.0.1, macOS
+- Дахин шалгасан огноо: 2026-11-25
+- Хаяг: `http://localhost:3000`
 
-## Expected result
-The application rejects empty submissions and does not create records.
+## Дахин гаргах алхам
 
-## Actual result
-The application displays "Ном нэмэгдлээ", creates blank rows with year 0, and increases the book counter.
+1. Аппыг шинээр асааж, анхны гурван номтой жагсаалтыг нээнэ.
+2. «Гарчиг»-ийг хоосон үлдээж, «Зохиолч»-д `Missing Author Test`, «Он»-д `2020` оруулна.
+3. «Нэмэх» товчийг дарж, мэдэгдэл болон хүснэгтийг шалгана.
 
-## Evidence
-- Screenshot: ../screenshots/empty-book-submission.png
-- Session notes: session-notes.txt
+Зохиогчийн талбарыг шалгахдаа аппыг шинээр асааж, «Гарчиг»-т `Author Check`, «Он»-д `2020` оруулна. «Зохиолч»-ийг хоосон үлдээгээд «Нэмэх» товчийг дарна.
 
-## Reproducibility
-Reproduced twice.
+## Хүлээгдсэн үр дүн
+
+Гурван талбар заавал бөглөгдөх ёстой. Апп дутуу мэдээллийн тухай мэдэгдэж, шинэ мөр нэмэхгүй байх ёстой.
+
+## Бодит үр дүн
+
+Апп хоёр тохиолдолд хоёуланд нь «Ном нэмэгдлээ» гэж мэдэгдсэн. Эхний тохиолдолд гарчиггүй, зохиогч нь `Missing Author Test` гэсэн мөр нэмэгдсэн. Дараагийн тохиолдолд `Author Check` гарчигтай, зохиогчгүй мөр нэмэгдсэн. Өмнөх туршилтаар бүх талбарыг хоосон илгээхэд гарчиг, зохиолчгүй, он нь `0` гэсэн бүртгэл үүсэж байсан.
+
+## Нотлох баримт
+
+![BUG-01 — Гарчиггүй номын мөр](../screenshots/bug-01-missing-title.png)
+
+![BUG-01 — Зохиогчгүй номын мөр](../screenshots/bug-01-missing-author.png)
+
+[Туршилтын тайлан, 22:48 ба 22:50](../session-report.md) · [Өмнөх зураг](../screenshots/empty-books.png) · [Өмнөх туршилтын тэмдэглэл](../session-notes.txt)

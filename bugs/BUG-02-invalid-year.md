@@ -1,29 +1,36 @@
-# BUG-02: Invalid publication years are accepted
+# BUG-02 — Зөвшөөрсөн хүрээнээс гадуурх онтой ном нэмэгддэг
 
-**Severity:** Medium
-**Category:** Input validation / Data integrity
-**Status:** Reproduced
+- **Ноцтой байдал:** Ноцтой (Major) — зөвшөөрөгдөөгүй он номын мэдээлэлд бүртгэгдэж байна.
+- **Ангилал:** Оролтын баталгаажуулалт, өгөгдлийн бүрэн бүтэн байдал
+- **Аялал:** Couch Potato
 
-## Environment
-- Application: Reading List v2.0
-- Browser: Firefox on macOS
-- URL: http://localhost:3000
+## Орчин
 
-## Steps to reproduce
-1. Open the add-book form.
-2. Enter a title and author.
-3. Enter abc as the year and submit.
-4. Repeat using -1 as the year.
+- Апп: «Уншлагын жагсаалт» v2.0
+- Хөтөч: Firefox 160.0.1, macOS
+- Дахин шалгасан огноо: 2026-11-25
+- Хаяг: `http://localhost:3000`
 
-## Expected result
-The application rejects non-numeric and negative years without creating records.
+## Дахин гаргах алхам
 
-## Actual result
-The abc submission creates a record displaying NaN. The -1 submission creates a record displaying -1. Both display "Ном нэмэгдлээ".
+1. Аппыг шинээр асааж, анхны гурван номтой жагсаалтыг нээнэ.
+2. «Гарчиг»-т `Year Test`, «Зохиолч»-д `Test Author`, «Он»-д `-1` оруулна.
+3. «Нэмэх» товчийг дарж, мэдэгдэл болон хүснэгтийг шалгана.
 
-## Evidence
-- Screenshot: ../screenshots/invalid-year.png
-- Session notes: session-notes.txt
+Хязгаарын утгыг шалгахдаа `Year 999`, `Year 1000`, `Year 2100`, `Year 2101` гэсэн өөр өөр гарчиг ашиглана. «Зохиолч»-д `Boundary Test`, «Он»-д гарчиг дахь тоог оруулж тус бүрийг нэмнэ.
 
-## Reproducibility
-Reproduced with two invalid year values.
+## Хүлээгдсэн үр дүн
+
+Хэвлэгдсэн он 1000–2100 хоорондох бүхэл тоо байх ёстой. `1000` болон `2100`-ыг зөвшөөрч, `-1`, `999`, `2101` утгад шинэ мөр нэмэхээс татгалзах ёстой.
+
+## Бодит үр дүн
+
+Апп «Ном нэмэгдлээ» гэж мэдэгдэж, хүснэгтэд `-1` онтой `Year Test` мөр нэмсэн. Хязгаарын шалгалтаар `1000`, `2100` зөв нэмэгдсэн боловч `999`, `2101` онтой мөрүүд мөн нэмэгдсэн. Жагсаалтын доор «Хамгийн шинэ он: 2101» гэж харагдсан.
+
+## Нотлох баримт
+
+![BUG-02 — Year Test ном -1 онтой нэмэгдсэн нь](../screenshots/invalid-year.png)
+
+[999 он](../screenshots/bug-02-year-999.png) · [1000 он](../screenshots/bug-02-year-1000.png) · [2100 он](../screenshots/bug-02-year-2100.png) · [2101 он ба дөрвөн мөр](../screenshots/bug-02-year-2101.png)
+
+[Туршилтын тайлан, 22:38 ба 23:01–23:02](../session-report.md)
